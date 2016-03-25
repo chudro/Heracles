@@ -6,6 +6,26 @@ Trinity Software is relaunching their business productivity applications (word p
 
 The crash log is currently being written to a kafka queue and needs to be processed in real time.  The log contains the complete error string along with metadata of user id, doc type, user agent, timestamp.  The metadata needs to be parsed and stored in Cassandra along with a count of crashes per 10 second interval. Error logs are stored in raw format and need to be made text searchable.
 
+# Reasons for DataStax Enterprise
+
+## Error Log Fuzzy and Faceted Search with DSE
+
+- DataStax Enterprise extends Cassandra with rich Search integration
+- Indexing of Error Logs provides fuzzy and faceted Search capabilities
+- No need to ETL data to external Search tool
+- Provides live-endexing of data on ingest
+- Bucketing of log data enables search by various time series grains
+
+## Creating new user account guaranteed to be unique
+
+Cassandra Lightweight Transactions
+Also known as Compare-And-Set, Lightweight Transactions are Cassandra’s way to ensure data is not automatically overwritten (upserted) per its the default behavior
+Such a transaction uses serial consistency which causes it to be inserted in the current flow of data modifications, committing if necessary a transaction in process
+It is achieved by using the syntax:
+“insert … if not exists” 
+or
+“update … if value = ‘some value’ ”
+
 # Setup - Requirements and steps 
 
 ## Setting up Cassandra
