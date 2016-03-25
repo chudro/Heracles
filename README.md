@@ -129,13 +129,13 @@ Below is the SOLR setup for querying the error logs.
 ## Create Core
 
 ```
-dsetool create_core heracles.error_log schema=~/github/heracles/schema.xml solrconfig=~/github/heracles/solrconfig.xml
+dsetool create_core heracles.error_log schema=~/github/heracles/solr/schema.xml solrconfig=~/github/heracles/solr/solrconfig.xml
 ```
 
 ## Reload Core:
 
 ```
-dsetool reload_core heracles.error_log reindex=true schema=~/github/heracles/schema.xml solrconfig=~/github/heracles/solrconfig.xml
+dsetool reload_core heracles.error_log reindex=true schema=~/github/heracles/solr/schema.xml solrconfig=~/github/heracles/solr/solrconfig.xml
 ```
 
 # Analytics - Setup and Sample Queries (batch or SparkSQL)
