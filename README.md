@@ -58,14 +58,17 @@ dse spark-submit --packages org.apache.spark:spark-streaming-kafka_2.10:1.4.1 --
 * running on the server for production mode
 `nohup dse spark-submit --packages org.apache.spark:spark-streaming-kafka_2.10:1.4.1 --class HeraclesStreaming.StreamingDirectRatings streaming_2.10-0.1.jar 172.31.5.154:9092 error_msgs true 2>&1 1>streaming-out.log &`
 
-Data Model
+# Data Model
 
+```
 CREATE TABLE heracles_db.error_msgs (
     error_id int primary key,
     error_msg text,
     error_time bigint
 );
+```
 
+```
 CREATE TABLE heracles.error_log (
     userid text,
     createdtime timestamp,
@@ -75,7 +78,9 @@ CREATE TABLE heracles.error_log (
     useragent text,
     PRIMARY KEY (userid, createdtime)
 ) WITH CLUSTERING ORDER BY (createdtime DESC);
+```
 
+```
 CREATE TABLE heracles.crash_count (
     useragent text,
     doctype text,
@@ -83,29 +88,32 @@ CREATE TABLE heracles.crash_count (
     crashcount int,
     PRIMARY KEY ((useragent, doctype, bucket))
 );
+```
 
+```
 CREATE TABLE heracles.login_count (
     userid text,
     bucket bigint,
     logincount int,
     PRIMARY KEY ((userid, bucket))
 ); 
+```
 
-Sample Inserts (CQL)
-
-
-Sample Queries (CQL)
+# Sample Inserts (CQL)
 
 
-Stress YAML
-
-Search - Setup, SOLR Schema and Sample Search Queries
-
-Analytics - Setup and Sample Queries (batch or SparkSQL)
-
-Data generator code
+# Sample Queries (CQL)
 
 
-Client for loading generated data
+# Stress YAML
+
+# Search - Setup, SOLR Schema and Sample Search Queries
+
+# Analytics - Setup and Sample Queries (batch or SparkSQL)
+
+# Data generator code
+
+
+# Client for loading generated data
 
 
