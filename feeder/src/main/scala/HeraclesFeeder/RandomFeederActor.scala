@@ -8,9 +8,9 @@ import scala.util.Random
 
 import org.joda.time.DateTime
 
-case class Rating(user_id: Int, movie_id: Int, rating: Float, batchtime:Long) {
+case class ErrorMsg(error_id: Int, error_msg: String, error_time:Long) {
   override def toString: String = {
-    s"$user_id::$movie_id::$rating::$batchtime"
+    s"$error_id::$error_msg::$error_time"
   }
 }
 
@@ -22,7 +22,7 @@ class RandomFeederActor(tickInterval:FiniteDuration) extends Actor with ActorLog
 
   log.info(s"Starting random feeder actor ${self.path}")
 
-  import FeederActor.SendNextLine
+  import RandomFeederActor.SendNextLine
 
   var counter = 0
 
@@ -30,42 +30,38 @@ class RandomFeederActor(tickInterval:FiniteDuration) extends Actor with ActorLog
 
   val feederTick = context.system.scheduler.schedule(Duration.Zero, tickInterval, self, SendNextLine)
 
-  val randMovies = Random
-  var movieIds: Array[Int] = initData()
-  val idLength = movieIds.length
+  val randMsgPicker = Random
+  var errorMsgs: Array[String] = initData()
+  val errorMsgsLength = errorMsgs.length
 
-  val randUser = Random
-  //pick out of 15 million random users
-  val userLength = 15000000
+  val randId = Random
+  //pick out of 15 million random ids
+  val randIdLength = 15000000
 
-  val randRating = Random
-  val randRatingDecimal = Random
-
-  var ratingsSent = 0
+  var errorMsgsSent = 0
 
   def receive = {
     case SendNextLine =>
 
-      val nxtMovie = movieIds(randMovies.nextInt(idLength))
-      val nxtUser = randUser.nextInt(userLength)
-      val nxtRandRating = randRating.nextInt(10) + randRatingDecimal.nextFloat()
 
-      val nxtRating = Rating(nxtUser, nxtMovie, nxtRandRating, new DateTime().getMillis)
+      val nxtErrorString = errorMsgs(randMsgPicker.nextInt(errorMsgsLength))
+      val nextId = randId.nextInt(randIdLength)
 
-      ratingsSent += 1
+      val nxtErrorMsg = ErrorMsg(nextId, nxtErrorString, new DateTime().getMillis)
 
+      errorMsgsSent += 1
 
       //rating data has the format user_id:movie_id:rating:timestamp
       //the key for the producer record is user_id + movie_id
-      val key = s"${nxtRating.user_id}${nxtRating.movie_id}"
-      val record = new ProducerRecord[String, String](feederExtension.kafkaTopic, key, nxtRating.toString)
+      val key = s"${nxtErrorMsg.error_id}"
+      val record = new ProducerRecord[String, String](feederExtension.kafkaTopic, key, nxtErrorMsg.toString)
       val future = feederExtension.producer.send(record, new Callback {
         override def onCompletion(result: RecordMetadata, exception: Exception) {
           if (exception != null) log.info("Failed to send record: " + exception)
           else {
             //periodically log the num of messages sent
-            if (ratingsSent % 20987 == 0)
-              log.info(s"ratingsSent = $ratingsSent  //  result partition: ${result.partition()}")
+            if (errorMsgsSent % 20 == 0)
+              log.info(s"ratingsSent = $errorMsgsSent : ${nxtErrorMsg.toString}")
           }
         }
       })
@@ -74,11 +70,7 @@ class RandomFeederActor(tickInterval:FiniteDuration) extends Actor with ActorLog
   }
 
   def initData() = {
-    val source = scala.io.Source.fromFile(feederExtension.movie_ids_file).getLines()
-    val movieIdsStrs: Array[String] = source.next().split(", ")
-    movieIdsStrs.collect {
-      case nxtIdStr if nxtIdStr.length > 0 => nxtIdStr.toInt
-    }
+    scala.io.Source.fromFile(feederExtension.errorFile).getLines().toArray
   }
 }
 

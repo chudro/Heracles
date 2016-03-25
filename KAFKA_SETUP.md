@@ -37,16 +37,13 @@ nohup bin/kafka-server-start.sh config/server.properties 2>&1 1> kafka.log &
 #On your local machine / laptop run jconsole to monitor kafka.  Enter the IP and Port from above
 jconsole &
 
-#kafka 0.8
-bin/kafka-create-topic.sh --zookeeper localhost:2181 --replica 1 --partition 1 --topic ratings
-bin/kafka-list-topic.sh --zookeeper localhost:2181
 
 #kafka 0.8.2
-bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 5 --topic ratings
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 5 --topic error_msgs
 bin/kafka-topics.sh --list --zookeeper localhost:2181
-bin/kafka-topics.sh --describe --topic ratings --zookeeper localhost:2181
+bin/kafka-topics.sh --describe --topic error_msgs --zookeeper localhost:2181
 
-bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic ratings --from-beginning
+bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic error_msgs --from-beginning
 
 
-bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic ratings
+bin/kafka-topics.sh --zookeeper localhost:2181 --delete --topic error_msgs
