@@ -1,0 +1,18 @@
+error starting client
+error starting server
+error starting cassandra
+com.mysql.jdbc.exceptions.jdbc4.CommunicationsException: Communications link failure
+The last packet sent successfully to the server was 0 milliseconds ago.
+The driver has not received any packets from the server.
+SEVERE: java.lang.UnsatisfiedLinkError: no xxx in java.library.path
+ERROR PCI: cannot allocate
+ERROR Kernel panic!
+ERROR Server not found
+Execute permission denied
+You do not have adequate permissions to execute the command
+No private key available for this certificate
+Certificate does not support Digital Signature
+Private key access denied.
+An invalid security token was provided.
+Logon failure: Unknown user name or bad password.
+An invalid security token was provided.
