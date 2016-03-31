@@ -126,19 +126,25 @@ CREATE TABLE heracles_db.login_count (
 # Sample Inserts (CQL)
 
 ```
-use heracles;
-insert into heracles.error_log (userid, doctype, useragent, createdtime, errorcode, errorstring) values ('123', 'Spreadsheet', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36', '2016-01-01 13:00:00-0100', 'Crash', 'Invalid Operation caused crash');
-insert into heracles.error_log (userid, doctype, useragent, createdtime, errorcode, errorstring) values ('123', 'Word', 'Safari/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36', '2016-01-01 14:00:00-0100', 'Crash', 'Invalid Operation caused crash');
-insert into heracles.error_log (userid, doctype, useragent, createdtime, errorcode, errorstring) values ('123', 'Powerpoint', 'Chrome/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36', '2016-01-01 15:00:00-0100', 'Crash', 'Invalid Operation caused crash');
-insert into heracles.error_log (userid, doctype, useragent, createdtime, errorcode, errorstring) values ('456', 'Word', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36', '2016-01-01 16:00:00-0100', 'Crash', 'Invalid Operation caused crash');
-insert into heracles.error_log (userid, doctype, useragent, createdtime, errorcode, errorstring) values ('456', 'Powerpoint', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36', '2016-01-01 17:00:00-0100', 'Crash', 'Invalid Operation caused crash');
-insert into heracles.error_log (userid, doctype, useragent, createdtime, errorcode, errorstring) values ('456', 'Spreadsheet', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36', '2016-01-01 18:00:00-0100', 'Crash', 'Invalid Operation caused crash');
+use heracles_db;
+insert into heracles_db.error_log (userid, doctype, useragent, createdtime, errorcode, errorstring) values ('123', 'Spreadsheet', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Ch
+rome/41.0.2228.0 Safari/537.36', '2016-01-01 13:00:00-0100', 'Crash', 'Invalid Operation caused crash');
+insert into heracles_db.error_log (userid, doctype, useragent, createdtime, errorcode, errorstring) values ('123', 'Word', 'Safari/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.
+0.2228.0 Safari/537.36', '2016-01-01 14:00:00-0100', 'Crash', 'Invalid Operation caused crash');
+insert into heracles_db.error_log (userid, doctype, useragent, createdtime, errorcode, errorstring) values ('123', 'Powerpoint', 'Chrome/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chro
+me/41.0.2228.0 Safari/537.36', '2016-01-01 15:00:00-0100', 'Crash', 'Invalid Operation caused crash');
+insert into heracles_db.error_log (userid, doctype, useragent, createdtime, errorcode, errorstring) values ('456', 'Word', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41
+.0.2228.0 Safari/537.36', '2016-01-01 16:00:00-0100', 'Crash', 'Invalid Operation caused crash');
+insert into heracles_db.error_log (userid, doctype, useragent, createdtime, errorcode, errorstring) values ('456', 'Powerpoint', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chr
+ome/41.0.2228.0 Safari/537.36', '2016-01-01 17:00:00-0100', 'Crash', 'Invalid Operation caused crash');
+insert into heracles_db.error_log (userid, doctype, useragent, createdtime, errorcode, errorstring) values ('456', 'Spreadsheet', 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Ch
+rome/41.0.2228.0 Safari/537.36', '2016-01-01 18:00:00-0100', 'Crash', 'Invalid Operation caused crash');
 ```
 
 # Sample Queries (CQL)
 
 ```
-select * from heracles.error_log where userid = 123 and createdtime > '2016-01-01 13:00:00-0100' and createdtime < '2016-01-01 15:00:00-0100';
+select * from heracles_db.error_log where userid = 123 and createdtime > '2016-01-01 13:00:00-0100' and createdtime < '2016-01-01 15:00:00-0100';
 ```
 # Stress YAML
 
@@ -149,19 +155,19 @@ Below is the SOLR setup for querying the error logs.
 ## Create Core
 
 ```
-dsetool create_core heracles.error_log schema=~/github/heracles/solr/schema.xml solrconfig=~/github/heracles/solr/solrconfig.xml
+dsetool create_core heracles_db.error_log schema=~/github/heracles/solr/schema.xml solrconfig=~/github/heracles/solr/solrconfig.xml
 ```
 
 ## Reload Core:
 
 ```
-dsetool reload_core heracles.error_log reindex=true schema=~/github/heracles/solr/schema.xml solrconfig=~/github/heracles/solr/solrconfig.xml
+dsetool reload_core heracles_db.error_log reindex=true schema=~/github/heracles/solr/schema.xml solrconfig=~/github/heracles/solr/solrconfig.xml
 ```
 # Sample Solr Queries (CQL)
 
 ```
-SELECT * FROM error_log WHERE solr_query='{"q":"useragent:*Mozilla*"}';
-SELECT * FROM error_log WHERE solr_query='{"q":"userid:123", "facet":{"field":"errorcode"}}';
+SELECT * FROM heracles_db.error_log WHERE solr_query='{"q":"useragent:*Mozilla*"}';
+SELECT * FROM heracles_db.error_log WHERE solr_query='{"q":"userid:123", "facet":{"field":"errorcode"}}';
 ```
 
 # Analytics - Setup and Sample Queries (batch or SparkSQL)
