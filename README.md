@@ -93,7 +93,7 @@ CREATE TABLE heracles_db.error_msgs (
 ```
 
 ```
-CREATE TABLE heracles.error_log (
+CREATE TABLE heracles_db.error_log (
     userid text,
     createdtime timestamp,
     doctype text,
@@ -105,7 +105,7 @@ CREATE TABLE heracles.error_log (
 ```
 
 ```
-CREATE TABLE heracles.crash_count (
+CREATE TABLE heracles_db.crash_count (
     useragent text,
     doctype text,
     bucket bigint,
@@ -115,7 +115,7 @@ CREATE TABLE heracles.crash_count (
 ```
 
 ```
-CREATE TABLE heracles.login_count (
+CREATE TABLE heracles_db.login_count (
     userid text,
     bucket bigint,
     logincount int,
