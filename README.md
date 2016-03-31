@@ -157,6 +157,12 @@ dsetool create_core heracles.error_log schema=~/github/heracles/solr/schema.xml 
 ```
 dsetool reload_core heracles.error_log reindex=true schema=~/github/heracles/solr/schema.xml solrconfig=~/github/heracles/solr/solrconfig.xml
 ```
+# Sample Solr Queries (CQL)
+
+```
+select * from heracles.error_log where solr_query={'errorcode:crash'};
+select * from heracles.error_log where solr_query={'user_id:123&facet=true&facet.field=errorcode'};
+```
 
 # Analytics - Setup and Sample Queries (batch or SparkSQL)
 
