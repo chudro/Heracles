@@ -160,8 +160,8 @@ dsetool reload_core heracles.error_log reindex=true schema=~/github/heracles/sol
 # Sample Solr Queries (CQL)
 
 ```
-select * from heracles.error_log where solr_query={'errorcode:crash'};
-select * from heracles.error_log where solr_query={'user_id:123&facet=true&facet.field=errorcode'};
+SELECT * FROM error_log WHERE solr_query='{"q":"useragent:*Mozilla*"}';
+SELECT * FROM error_log WHERE solr_query='{"q":"userid:123", "facet":{"field":"errorcode"}}';
 ```
 
 # Analytics - Setup and Sample Queries (batch or SparkSQL)
