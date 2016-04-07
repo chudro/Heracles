@@ -2,7 +2,7 @@ package HeraclesFeeder
 
 import akka.actor.{Actor, ActorLogging, Props}
 import org.apache.kafka.clients.producer.{Callback, ProducerRecord, RecordMetadata}
-import org.joda.time.DateTime
+import org.joda.time.{MutableDateTime, Days, DateTime}
 
 import scala.concurrent.duration.{Duration, _}
 import scala.util.Random
@@ -44,10 +44,21 @@ class RandomFeederActor(tickInterval: FiniteDuration) extends Actor with ActorLo
   val loginFailures = 0
   var loginMsgsSent = 0
 
+  val epoch = {
+    val t = new MutableDateTime()
+    t.setDate(0)
+    t
+  }
+
+  val rand_dates = Random
+  val currentDateTime = new MutableDateTime
+
+
   def receive = {
     case SendNextLine =>
 
       val nextErrorStatus = if ((RAND_LOGIN_SUCCESS.nextInt(RAND_LOGIN_LENGTH) % 50) == 0) {
+        currentDateTime.addMinutes(rand_dates.nextInt(20))
         (false, sendRandomErrorMsg())
       }
       else {
@@ -55,7 +66,9 @@ class RandomFeederActor(tickInterval: FiniteDuration) extends Actor with ActorLo
         (true, 0)
       }
 
-      val ul = UserLogin(RAND_USER_LOGIN_CONST.nextInt(RAND_USER_LOGIN_ID), nextErrorStatus._1, nextErrorStatus._2)
+      var lastDayOffset = (Days.daysBetween(epoch, currentDateTime)).getDays
+
+      val ul = UserLogin(RAND_USER_LOGIN_CONST.nextInt(RAND_USER_LOGIN_ID), nextErrorStatus._1, nextErrorStatus._2, lastDayOffset)
       val key = RAND_LOGIN_KEY.nextInt().toString
       if (!nextErrorStatus._1) log.info(s"sending $key   $ul")
       loginMsgsSent += 1

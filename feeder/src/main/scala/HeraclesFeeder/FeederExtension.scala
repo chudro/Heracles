@@ -4,6 +4,9 @@ import java.util.Properties
 
 import akka.actor._
 import org.apache.kafka.clients.producer.{KafkaProducer,ProducerConfig}
+import org.joda.time.MutableDateTime
+
+import scala.util.Random
 
 object FeederExtension extends ExtensionKey[FeederExtension]
 
@@ -23,6 +26,8 @@ class FeederExtension(system: ExtendedActorSystem) extends Extension {
   props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer")
 
   val producer = new KafkaProducer[String, String](props)
+
+
 
 }
 

@@ -9,9 +9,10 @@ import org.apache.spark.streaming.dstream.DStream
 import org.apache.spark.streaming.kafka.KafkaUtils
 import org.apache.spark.streaming.{Seconds, StreamingContext, Time}
 import org.apache.spark.{SparkConf, SparkContext}
-import org.joda.time.DateTime
+import org.joda.time.{MutableDateTime, Days, DateTime}
 
 import scala.collection.mutable.ArrayBuffer
+import scala.util.Random
 
 
 /** This uses the Kafka Direct introduced in Spark 1.4
@@ -22,6 +23,7 @@ object StreamingDirectRatings {
   //type alias for tuples, increases readablity
   type RatingCollector = (Int, Float)
   type MovieRatings = (Int, (Int, Float))
+
 
   def main(args: Array[String]) {
 
@@ -59,6 +61,7 @@ object StreamingDirectRatings {
     println(s"ssc: $ssc")
     println(s"kafkaParams: $kafkaParams")
 
+
     extractRawLoginStream(loginTopicsArg, debugOutput, ssc, kafkaParams, sqlContext)
     extractRawErrorStream(errorTopicsArg, debugOutput, ssc, kafkaParams, sqlContext)
 
@@ -77,7 +80,7 @@ object StreamingDirectRatings {
     val loginsStream = rawLoginsStream.map { case (key, nxtLogins) =>
       val parsedLogins = nxtLogins.split("::")
       val login_success = parsedLogins(1).trim.toBoolean
-      UserLogin(parsedLogins(0).trim.toInt,login_success, parsedLogins(2).trim.toInt)
+      UserLogin(parsedLogins(0).trim.toInt,login_success, parsedLogins(2).trim.toInt, parsedLogins(3).trim.toInt)
     }
 
     loginsStream.foreachRDD {
