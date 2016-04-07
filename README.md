@@ -93,6 +93,16 @@ CREATE TABLE heracles_db.error_msgs (
 ```
 
 ```
+CREATE TABLE heracles_db.user_logins (
+    user_id int,
+    login_success boolean,
+    error_id int,
+    day_offset int,
+    PRIMARY KEY ((user_id, day_offset))
+); 
+```
+
+```
 CREATE TABLE heracles_db.error_log (
     userid text,
     createdtime timestamp,
