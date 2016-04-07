@@ -6,8 +6,8 @@ case class ErrorMsg(error_id: Int, error_msg: String, error_time:Long) {
   }
 }
 
-case class UserLogin(user_id:Int, login_success:Boolean, error_id:Int, day_offset:Int) {
+case class UserLogin(user_id:Int, login_success:Boolean, error_id:Int, timestamp:Long) {
   override def toString: String = {
-    s"$user_id::$login_success::$error_id::$day_offset"
+    s"$user_id::$login_success::$error_id::$timestamp"
   }
 }

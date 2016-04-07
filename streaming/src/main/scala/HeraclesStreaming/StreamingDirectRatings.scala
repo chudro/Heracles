@@ -24,6 +24,14 @@ object StreamingDirectRatings {
   type RatingCollector = (Int, Float)
   type MovieRatings = (Int, (Int, Float))
 
+  val epoch = {
+    val t = new MutableDateTime()
+    t.setDate(0)
+    t
+  }
+
+  val rand_dates = Random
+  val currentDateTime = new MutableDateTime
 
   def main(args: Array[String]) {
 
@@ -80,7 +88,8 @@ object StreamingDirectRatings {
     val loginsStream = rawLoginsStream.map { case (key, nxtLogins) =>
       val parsedLogins = nxtLogins.split("::")
       val login_success = parsedLogins(1).trim.toBoolean
-      UserLogin(parsedLogins(0).trim.toInt,login_success, parsedLogins(2).trim.toInt, parsedLogins(3).trim.toInt)
+      val timestamp: Long = new DateTime(parsedLogins(3).trim.toLong).getMillis
+      UserLogin(parsedLogins(0).trim.toInt,login_success, parsedLogins(2).trim.toInt, timestamp)
     }
 
     loginsStream.foreachRDD {
@@ -120,6 +129,9 @@ object StreamingDirectRatings {
 
     errorsStream.foreachRDD {
       (error_msg: RDD[ErrorMsg], batchTime: Time) => {
+
+        currentDateTime.addMinutes(rand_dates.nextInt(5))
+        var lastDayOffset = (Days.daysBetween(epoch, currentDateTime)).getDays
 
         // convert each RDD from the batch into a Ratings DataFrame
         //rating data has the format user_id:movie_id:rating:timestamp
