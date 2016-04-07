@@ -97,8 +97,9 @@ CREATE TABLE heracles_db.user_logins (
     user_id int,
     login_success boolean,
     error_id int,
+    timestamp bigint,
     day_offset int,
-    PRIMARY KEY ((user_id, day_offset))
+    PRIMARY KEY ((user_id, day_offset), timestamp)
 ); 
 ```
 
