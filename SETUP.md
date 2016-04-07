@@ -47,7 +47,7 @@ Copy the application.conf file to dev.conf and modify the zookeeper location.  T
 
 * running on a server in foreground
 * first parameter is kafka broker and the second parameter whether to display debug output  (true|false)
-dse spark-submit --packages org.apache.spark:spark-streaming-kafka_2.10:1.4.1 --class HeraclesStreaming.StreamingDirectRatings streaming_2.10-0.1.jar 172.31.5.154:9092 error_msgs true
+dse spark-submit --packages org.apache.spark:spark-streaming-kafka_2.10:1.4.1 --class HeraclesStreaming.StreamingDirectRatings streaming_2.10-0.1.jar 172.31.5.154:9092 error_msgs login_msgs true
 
 * running on the server for production mode
 `nohup dse spark-submit --packages org.apache.spark:spark-streaming-kafka_2.10:1.4.1 --class HeraclesStreaming.StreamingDirectRatings streaming_2.10-0.1.jar 172.31.5.154:9092 error_msgs true 2>&1 1>streaming-out.log &`

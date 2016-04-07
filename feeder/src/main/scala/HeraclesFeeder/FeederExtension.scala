@@ -14,7 +14,8 @@ class FeederExtension(system: ExtendedActorSystem) extends Extension {
   val errorFile = systemConfig.getString("HeraclesFeeder.errorFile")
   val kafkaHost = systemConfig.getString("HeraclesFeeder.kafkaHost")
   println(s"kafkaHost $kafkaHost")
-  val kafkaTopic = systemConfig.getString("HeraclesFeeder.kafkaTopic")
+  val errorTopic = systemConfig.getString("HeraclesFeeder.errorTopic")
+  val loginTopic = systemConfig.getString("HeraclesFeeder.loginTopic")
 
   val props = new Properties()
   props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaHost)

@@ -40,6 +40,8 @@ jconsole &
 
 #kafka 0.8.2
 bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 5 --topic error_msgs
+bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 5 --topic login_msgs
+
 bin/kafka-topics.sh --list --zookeeper localhost:2181
 bin/kafka-topics.sh --describe --topic error_msgs --zookeeper localhost:2181
 
