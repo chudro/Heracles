@@ -3,10 +3,10 @@
 
 ## Initial Requirements
 
-> Download Banana 
+1.Download Banana 
 Lucidworks Banana: https://github.com/lucidworks/banana
 
-> Create Solr Cores for tables to be viewed through the dashboard
+2.Create Solr Cores for tables to be viewed through the dashboard
 
 $ bin/dsetool create_core heracles_db.error_log generateResources=true reindex=true
 $ bin/dsetool create_core heracles_db.error_msgs generateResources=true reindex=true
