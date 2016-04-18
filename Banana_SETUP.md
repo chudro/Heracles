@@ -69,7 +69,7 @@ dse cassandra restart
 
  http://localhost:8983/banana
 
- ## Source : 
+## Source : 
 https://medium.com/@carolinerg/visualizing-cassandra-solr-data-with-banana-b54bf9dd24c#.dz96jqpq3
 
 
