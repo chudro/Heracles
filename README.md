@@ -188,4 +188,15 @@ SELECT * FROM heracles_db.error_log WHERE solr_query='{"q":"userid:123", "facet"
 
 # Client for loading generated data
 
+#Banana (DSE Search Dashboarding UI) 
+
+The Banana project was forked from Kibana, and works with all kinds of time series (and non-time series) data stored in Apache Solr. It is being used to dashboard Solr cores created with DSE search. The dashboard can be set up for various data enquires like error reports, doc types in which the errors occurred, etc. 
+
+## Setup Banana 
+
+[See the Banana Setup Instructions in the Banana_SETUP.md file](Banana_SETUP.md)
+
+
+
+
 
