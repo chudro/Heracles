@@ -157,7 +157,6 @@ rome/41.0.2228.0 Safari/537.36', '2016-01-01 18:00:00-0100', 'Crash', 'Invalid O
 ```
 select * from heracles_db.error_log where userid = 123 and createdtime > '2016-01-01 13:00:00-0100' and createdtime < '2016-01-01 15:00:00-0100';
 ```
-# Stress YAML
 
 # Search - Setup, SOLR Schema and Sample Search Queries
 
@@ -183,10 +182,11 @@ SELECT * FROM heracles_db.error_log WHERE solr_query='{"q":"userid:123", "facet"
 
 # Analytics - Setup and Sample Queries (batch or SparkSQL)
 
-# Data generator code
+The (Notebooks)[https://github.com/chudro/Heracles/tree/master/notebooks] section of this site provides sample analytic queries.
 
+# Feeder code
 
-# Client for loading generated data
+Within this site is the (Feeder)[https://github.com/chudro/Heracles/tree/master/feeder/src/main] piece for generating data. 
 
 #Banana (DSE Search Dashboarding UI) 
 
