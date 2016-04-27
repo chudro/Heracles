@@ -186,7 +186,7 @@ The [Notebooks](https://github.com/chudro/Heracles/tree/master/notebooks) sectio
 
 # Feeder code
 
-Within this site is the [Feeder](https://github.com/chudro/Heracles/tree/master/feeder/src/main) piece for generating data. 
+Within this site is the [Feeder](https://github.com/chudro/Heracles/tree/master/feeder) piece for generating data. 
 
 #Banana (DSE Search Dashboarding UI) 
 
