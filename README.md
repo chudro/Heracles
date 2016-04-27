@@ -182,11 +182,11 @@ SELECT * FROM heracles_db.error_log WHERE solr_query='{"q":"userid:123", "facet"
 
 # Analytics - Setup and Sample Queries (batch or SparkSQL)
 
-The (Notebooks)[https://github.com/chudro/Heracles/tree/master/notebooks] section of this site provides sample analytic queries.
+The [Notebooks](https://github.com/chudro/Heracles/tree/master/notebooks) section of this site provides sample analytic queries.
 
 # Feeder code
 
-Within this site is the (Feeder)[https://github.com/chudro/Heracles/tree/master/feeder/src/main] piece for generating data. 
+Within this site is the [Feeder](https://github.com/chudro/Heracles/tree/master/feeder/src/main) piece for generating data. 
 
 #Banana (DSE Search Dashboarding UI) 
 
